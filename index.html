@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo que dice y lo que hace</title>
+<meta name="description" content="Una prueba de 30 segundos para vivir lo que Diego Villarroel, diseñador UX/UI, ve en cada prueba con usuarios. Elementos de Psicología · FADU-UBA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&amp;family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,500&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>
+
+body{margin:0;background:#111114}
+a{color:#FF5A45}a:hover{color:#F2F2EF}
+html{scroll-behavior:smooth}
+button{font-family:inherit;cursor:pointer}
+button:disabled{cursor:not-allowed}
+.rec{animation:rec 1.2s steps(1) infinite}
+.palabra{display:inline-block;opacity:0;transform:translateY(.35em);animation:palabra .6s cubic-bezier(.2,.8,.2,1) forwards}
+.paso{animation:paso .4s cubic-bezier(.3,1.3,.5,1) both}
+.salto{transition:transform .22s cubic-bezier(.3,1.4,.5,1),box-shadow .22s,background .2s}
+.salto:hover{transform:translateY(-3px)}
+.salto:active{transform:translateY(1px) scale(.98)}
+.nota{animation:nota 3.4s ease both}
+.barra{transform-origin:center bottom}
+.sonando{animation:onda .7s ease-in-out infinite alternate}
+.w{transition-property:color;transition-duration:.25s}
+.candado{animation:candado 2.6s ease-in-out infinite;transform-origin:50% 30%}
+@keyframes rec{50%{opacity:.2}}
+@keyframes palabra{to{opacity:1;transform:none}}
+@keyframes paso{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes nota{0%{opacity:0;transform:translateY(8px)}10%,82%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes onda{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+@keyframes candado{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-10deg)}82%{transform:rotate(8deg)}88%{transform:rotate(-4deg)}}
+@keyframes sube{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+@keyframes aparece{from{opacity:.12}to{opacity:1}}
+@supports (animation-timeline: view()){
+.revela{animation:sube linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+.wscroll{animation:aparece linear both;animation-timeline:view()}
+}
+@media (max-width:600px){
+.marco{padding:6px!important;border-radius:40px!important;height:620px!important}
+.marco>div{border-radius:34px!important}
+.panel{min-height:0!important;gap:56px!important}
+.cita{padding:24px 20px!important}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.palabra{opacity:1;transform:none}}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/template" id="plantilla">
+<div style="font-family: Figtree, sans-serif; color: #F2F2EF; background: #111114; overflow-x: hidden;">
+
+<!-- BARRA -->
+<div style="max-width: 1240px; margin: 0 auto; padding: 24px clamp(20px, 4vw, 48px); box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;">
+  <span style="display: inline-flex; align-items: center; gap: 10px; font: 600 12px/1.4 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #F2F2EF;"><span class="rec" style="width: 10px; height: 10px; border-radius: 50%; background: #FF3B2F;"></span>REC · ENTREVISTA A DIEGO VILLARROEL</span>
+  <span style="font: 500 12px/1.4 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #9A9AA0;">ELEMENTOS DE PSICOLOGÍA · FADU-UBA</span>
+</div>
+
+<!-- 01 · PORTADA -->
+<section style="max-width: 1240px; margin: 0 auto; padding: clamp(40px, 7vw, 96px) clamp(20px, 4vw, 48px) clamp(72px, 9vw, 120px); box-sizing: border-box; display: flex; flex-direction: column; gap: clamp(32px, 4vw, 48px);">
+  <h1 style="margin: 0; font: 800 clamp(76px, 15vw, 210px)/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0;">
+    <span style="display: block; color: #F2F2EF;"><sc-for list="{{tituloA}}" as="w" hint-placeholder-count="3"><span class="palabra" style="animation-delay: {{w.d}}s; margin-right: .18em;">{{w.t}}</span></sc-for></span>
+    <span style="display: block; color: #FF3B2F;"><sc-for list="{{tituloB}}" as="w" hint-placeholder-count="4"><span class="palabra" style="animation-delay: {{w.d}}s; margin-right: .18em;">{{w.t}}</span></sc-for></span>
+  </h1>
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px 64px;">
+    <p style="margin: 0; flex: 1 1 380px; max-width: 620px; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.55; color: #C9C9CE;">Diego diseña interfaces hace cuatro años y prueba sus pantallas con personas reales. Nos contó que lo que la gente dice y lo que hace no siempre coinciden. Podés leerlo, o podés <strong style="color: #F2F2EF;">vivirlo en 30&nbsp;segundos.</strong></p>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+      <a class="salto" href="#prueba" style="display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 28px; border-radius: 999px; background: #FF3B2F; color: #111114; font: 700 17px Figtree, sans-serif; text-decoration: none;">Hacer la prueba
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111114" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg>
+      </a>
+      <a class="salto" href="#testimonio" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 24px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px #5A5A60; color: #F2F2EF; font: 600 16px Figtree, sans-serif; text-decoration: none;">Prefiero escuchar a Diego</a>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · LA PRUEBA -->
+<section id="prueba" style="background: #F2F2EF; color: #111114;">
+  <div style="max-width: 1240px; margin: 0 auto; padding: clamp(64px, 9vw, 112px) clamp(20px, 4vw, 48px); box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 48px 72px;">
+    <div style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 28px; min-width: 0;">
+      <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #C42A1E;">01 · LA PRUEBA</span>
+      <h2 style="margin: 0; font: 800 clamp(56px, 7.5vw, 104px)/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">Cancelá tu suscripción</h2>
+      <p style="margin: 0; max-width: 480px; font-size: 19px; line-height: 1.55; color: #46464C;">Una tarea concreta y nadie que te ayude: así son las pruebas que hace Diego. Mientras la hacés, esta página observa. Al final te preguntamos cómo te fue.</p>
+      <div style="border-radius: 20px; padding: 20px 22px; background: #111114; color: #F2F2EF; display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+          <span style="display: inline-flex; align-items: center; gap: 8px; font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .12em;"><span class="{{recClass}}" style="width: 9px; height: 9px; border-radius: 50%; background: {{recColor}};"></span>{{recLabel}}</span>
+          <span style="font: 600 22px 'IBM Plex Mono', monospace; color: #F2F2EF;">{{reloj}}</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <div style="flex: 1 1 0; border-radius: 12px; padding: 12px; background: #1E1E23; display: flex; flex-direction: column; gap: 4px;"><span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .1em; color: #9A9AA0;">TOQUES</span><span style="font: 600 18px 'IBM Plex Mono', monospace;">{{obsToques}}</span></div>
+          <div style="flex: 1 1 0; border-radius: 12px; padding: 12px; background: #1E1E23; display: flex; flex-direction: column; gap: 4px;"><span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .1em; color: #9A9AA0;">PANTALLAS</span><span style="font: 600 18px 'IBM Plex Mono', monospace;">{{obsPantallas}}</span></div>
+        </div>
+        <span style="font-size: 13px; line-height: 1.4; color: #9A9AA0;">Los números se revelan cuando termines, igual que en una prueba real: el que observa no le muestra nada a quien prueba.</span>
+      </div>
+    </div>
+
+    <div style="flex: 0 1 380px; width: 100%; max-width: 380px; margin: 0 auto;">
+      <div class="marco" style="height: 660px; border-radius: 46px; padding: 11px; background: #111114; box-shadow: 0 40px 80px rgba(17,17,20,.28);">
+        <div style="position: relative; height: 100%; border-radius: 36px; overflow: hidden; background: #FFFFFF; color: #1B1A2E; display: flex; flex-direction: column;">
+          <div style="height: 34px; flex: 0 0 auto; display: flex; justify-content: center; align-items: center;"><div style="width: 96px; height: 24px; border-radius: 999px; background: #111114;"></div></div>
+
+          <sc-if value="{{isIntro}}" hint-placeholder-val="{{true}}">
+            <div class="paso" style="flex: 1 1 auto; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; background: #111114; color: #F2F2EF;">
+              <div style="display: flex; flex-direction: column; gap: 18px;">
+                <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #FF3B2F;">TU TAREA</span>
+                <p style="margin: 0; font: 800 50px/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">Cancelá tu suscripción Premium.</p>
+                <p style="margin: 0; font-size: 16px; line-height: 1.5; color: #C9C9CE;">Sin apuro y sin ayuda. Vale equivocarse.</p>
+              </div>
+              <button class="salto" onClick="{{start}}" style="min-height: 58px; border: 0; border-radius: 18px; background: #FF3B2F; color: #111114; font-weight: 700; font-size: 17px;">Empezar</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isApp}}" hint-placeholder-val="{{false}}">
+            <div class="paso" style="flex: 1 1 auto; padding: 14px 20px 14px; display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font: 700 24px/1.2 Figtree, sans-serif;">Mi cuenta</span>
+                <span aria-hidden="true" style="width: 38px; height: 38px; border-radius: 50%; background: #E9E5FF; color: #5B3DF5; display: flex; align-items: center; justify-content: center; font-weight: 700;">M</span>
+              </div>
+              <div style="border-radius: 22px; padding: 20px; background: #5B3DF5; color: #FFFFFF; display: flex; flex-direction: column; gap: 8px;">
+                <span style="font: 600 11px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #DCD4FF;">TU PLAN</span>
+                <span style="font: 700 30px/1.1 Figtree, sans-serif;">Premium</span>
+                <span style="font-size: 14px; line-height: 1.4; color: #E9E5FF;">Se renueva el 12 de diciembre</span>
+              </div>
+              <button class="salto" onClick="{{tapSeguir}}" style="min-height: 56px; border: 0; border-radius: 16px; background: #1B1A2E; color: #FFFFFF; font-weight: 700; font-size: 16px;">Seguir disfrutando Premium</button>
+              <button class="salto" onClick="{{tapBeneficios}}" style="min-height: 50px; border-radius: 16px; background: #F3F1FF; border: 0; color: #3F28C9; font-weight: 600; font-size: 15px;">Ver mis 12 beneficios</button>
+              <sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}">
+                <div class="nota" style="padding: 12px 14px; border-radius: 12px; background: #1B1A2E; color: #FFFFFF; font-size: 14px; line-height: 1.4;">{{note}}</div>
+              </sc-if>
+              <div style="flex: 1 1 auto;"></div>
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0 12px; border-top: 1px solid #ECEAF2; padding-top: 6px;">
+                <button onClick="{{tapAyuda}}" style="min-height: 44px; border: 0; background: none; color: #6A6880; font-size: 12px;">Ayuda</button>
+                <button onClick="{{tapPrivacidad}}" style="min-height: 44px; border: 0; background: none; color: #6A6880; font-size: 12px;">Privacidad</button>
+                <button onClick="{{gestionar}}" style="min-height: 44px; border: 0; background: none; color: #6A6880; font-size: 12px;">Gestionar suscripción</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isOferta}}" hint-placeholder-val="{{false}}">
+            <div class="paso" style="flex: 1 1 auto; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: #F3F1FF;">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <span style="align-self: flex-start; padding: 6px 12px; border-radius: 999px; background: #5B3DF5; color: #FFFFFF; font: 600 11px 'IBM Plex Mono', monospace; letter-spacing: .12em;">OFERTA ESPECIAL</span>
+                <p style="margin: 0; font: 700 34px/1.12 Figtree, sans-serif;">¡Esperá! Te regalamos un mes&nbsp;gratis.</p>
+                <p style="margin: 0; font-size: 16px; line-height: 1.5; color: #4E4C66;">Quedate sin pagar nada y decidí más tranquilo.</p>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <button class="salto" onClick="{{tapMesGratis}}" style="min-height: 58px; border: 0; border-radius: 16px; background: #5B3DF5; color: #FFFFFF; font-weight: 700; font-size: 17px;">Quiero mi mes gratis</button>
+                <button onClick="{{noGracias}}" style="min-height: 44px; border: 0; background: none; color: #6A6880; font-size: 13px;">No, gracias. Cancelar igual</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isAviso}}" hint-placeholder-val="{{false}}">
+            <div class="paso" style="flex: 1 1 auto; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #6A6880;">¿SEGURO?</span>
+                <p style="margin: 0; font: 700 34px/1.12 Figtree, sans-serif;">Vas a perder tu racha de 34&nbsp;días.</p>
+                <div aria-hidden="true" style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px;">
+                  <sc-for list="{{racha}}" as="d" hint-placeholder-count="35">
+                    <span style="aspect-ratio: 1; border-radius: 6px; background: {{d.c}};"></span>
+                  </sc-for>
+                </div>
+                <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4E4C66;">Y el mes gratis que te ofrecimos. Tu yo de mañana te lo va a agradecer.</p>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="salto" onClick="{{tapMantener}}" style="min-height: 58px; border: 0; border-radius: 16px; background: #5B3DF5; color: #FFFFFF; font-weight: 700; font-size: 17px;">Mantener mi racha</button>
+                <button class="salto" onClick="{{cancelar}}" style="min-height: 50px; border-radius: 16px; background: transparent; border: 1.5px solid #CFCBE0; color: #1B1A2E; font-weight: 600; font-size: 15px;">Cancelar suscripción</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isHecho}}" hint-placeholder-val="{{false}}">
+            <div class="paso" style="flex: 1 1 auto; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; background: #111114; color: #F2F2EF;">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #7EDB9A;">CANCELADA · FIN DE LA PRUEBA</span>
+                <p style="margin: 0; font: 800 50px/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">¿Qué tan fácil te resultó?</p>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="salto" onClick="{{rFacil}}" style="min-height: 56px; border: 0; border-radius: 16px; background: #F2F2EF; color: #111114; font-weight: 700; font-size: 17px;">Re fácil</button>
+                <button class="salto" onClick="{{rNormal}}" style="min-height: 56px; border: 0; border-radius: 16px; background: #2A2A30; color: #F2F2EF; font-weight: 700; font-size: 17px;">Normal</button>
+                <button class="salto" onClick="{{rCosto}}" style="min-height: 56px; border: 0; border-radius: 16px; background: #2A2A30; color: #F2F2EF; font-weight: 700; font-size: 17px;">Me costó</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isFin}}" hint-placeholder-val="{{false}}">
+            <div class="paso" style="flex: 1 1 auto; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; background: #111114; color: #F2F2EF;">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #FF3B2F;">RESULTADO DESBLOQUEADO</span>
+                <p style="margin: 0; font: 800 50px/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">Ahora mirá lo que hiciste.</p>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <a class="salto" href="#resultado" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; background: #FF3B2F; color: #111114; font-weight: 700; font-size: 17px; text-decoration: none;">Ver mi resultado</a>
+                <button onClick="{{reset}}" style="min-height: 44px; border: 0; background: none; color: #9A9AA0; font-size: 14px;">Repetir la prueba</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · TU RESULTADO (se desbloquea con la prueba) -->
+<section id="resultado" style="background: #111114;">
+  <div style="max-width: 1240px; margin: 0 auto; padding: clamp(64px, 9vw, 112px) clamp(20px, 4vw, 48px); box-sizing: border-box; display: flex; flex-direction: column; gap: 40px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+      <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #FF5A45;">02 · TU RESULTADO</span>
+      <span style="padding: 8px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px #5A5A60; font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #C9C9CE;">INCONSCIENTE</span>
+    </div>
+
+    <sc-if value="{{sinPrueba}}" hint-placeholder-val="{{true}}">
+      <div style="position: relative; border-radius: 32px; padding: clamp(32px, 5vw, 64px); background: repeating-linear-gradient(135deg, #17171B 0 14px, #1B1B20 14px 28px); box-shadow: inset 0 0 0 1.5px #2E2E35; display: flex; flex-wrap: wrap; align-items: center; gap: 32px 48px;">
+        <svg class="candado" width="88" height="104" viewBox="0 0 88 104" aria-hidden="true"><path d="M22 46V30a22 22 0 0 1 44 0v16" stroke="#F2F2EF" stroke-width="8" fill="none" stroke-linecap="round"></path><rect x="6" y="44" width="76" height="56" rx="14" fill="#FF3B2F"></rect><circle cx="44" cy="68" r="7" fill="#111114"></circle><rect x="40" y="70" width="8" height="16" rx="4" fill="#111114"></rect></svg>
+        <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 14px;">
+          <p style="margin: 0; font: 800 clamp(44px, 5.5vw, 72px)/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">Esta parte se desbloquea con la prueba</p>
+          <p style="margin: 0; max-width: 540px; font-size: 18px; line-height: 1.55; color: #C9C9CE;">Acá aparece lo que dijiste al lado de lo que hiciste, y qué trampa había detrás de cada toque.</p>
+        </div>
+        <a class="salto" href="#prueba" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: 999px; background: #FF3B2F; color: #111114; font-weight: 700; text-decoration: none;">Hacer la prueba</a>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{done}}" hint-placeholder-val="{{false}}">
+      <div class="paso" style="display: flex; flex-direction: column; gap: 40px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+          <div class="panel" style="flex: 1 1 340px; min-height: 320px; border-radius: 32px; padding: clamp(24px, 3vw, 40px); background: #F2F2EF; color: #111114; display: flex; flex-direction: column; justify-content: space-between; gap: 24px;">
+            <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #46464C;">LO QUE DIJISTE</span>
+            <p style="margin: 0; font: 800 clamp(80px, 11vw, 150px)/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">{{dijiste}}</p>
+          </div>
+          <div class="panel" style="flex: 1 1 340px; min-height: 320px; border-radius: 32px; padding: clamp(24px, 3vw, 40px); background: #FF3B2F; color: #111114; display: flex; flex-direction: column; justify-content: space-between; gap: 24px;">
+            <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em;">LO QUE HICISTE</span>
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font: 800 clamp(56px, 6.5vw, 88px)/1 'Saira Extra Condensed', sans-serif;">{{segundos}}</span><span style="font-size: 15px; line-height: 1.3; font-weight: 600;">segundos</span></div>
+              <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font: 800 clamp(56px, 6.5vw, 88px)/1 'Saira Extra Condensed', sans-serif;">{{toques}}</span><span style="font-size: 15px; line-height: 1.3; font-weight: 600;">toques que te alejaban</span></div>
+              <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font: 800 clamp(56px, 6.5vw, 88px)/1 'Saira Extra Condensed', sans-serif;">{{pantallas}}</span><span style="font-size: 15px; line-height: 1.3; font-weight: 600;">pantallas para irte</span></div>
+            </div>
+          </div>
+        </div>
+        <p style="margin: 0; max-width: 920px; font: 600 clamp(24px, 2.6vw, 34px)/1.3 Figtree, sans-serif;">{{veredicto}}</p>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #9A9AA0;">TU RECORRIDO, TOQUE POR TOQUE</span>
+          <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{recorrido}}" as="r" hint-placeholder-count="4">
+              <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 16px 20px; border-radius: 18px; background: #1B1B20;">
+                <span style="width: 32px; font: 600 13px 'IBM Plex Mono', monospace; color: #9A9AA0;">{{r.n}}</span>
+                <span style="width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: {{r.bg}}; color: #111114; font: 700 14px 'IBM Plex Mono', monospace;">{{r.icono}}</span>
+                <span style="flex: 1 1 220px; font-size: 17px; line-height: 1.35; font-weight: 600;">{{r.label}}</span>
+                <span style="flex: 2 1 320px; font-size: 15px; line-height: 1.45; color: #C9C9CE;">{{r.trampa}}</span>
+                <span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .1em; color: {{r.tagColor}};">{{r.tag}}</span>
+              </li>
+            </sc-for>
+          </ol>
+        </div>
+        <div class="cita" style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; padding: 28px 32px; border-radius: 28px; background: #F2F2EF; color: #111114;">
+          <span style="flex: 0 1 auto; min-width: 0; font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #C42A1E;">DIEGO, SOBRE CANCELAR ADOBE O CHATGPT · 42:04</span>
+          <p style="margin: 0; flex: 1 1 420px; font: 500 italic clamp(20px, 2vw, 26px)/1.4 Figtree, sans-serif;">“Antes de que llegues a cancelarla, te meten 15.000 cosas. Porque me ha pasado y porque yo me quedé por ese tipo de&nbsp;cosas.”</p>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<!-- 04 · TESTIMONIO -->
+<section id="testimonio" style="background: #F2F2EF; color: #111114;">
+  <div style="max-width: 1240px; margin: 0 auto; padding: clamp(64px, 9vw, 112px) clamp(20px, 4vw, 48px); box-sizing: border-box; display: flex; flex-direction: column; gap: 48px;">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 64px;">
+      <div style="display: flex; flex-direction: column; gap: 20px; flex: 1 1 520px;">
+        <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #C42A1E;">03 · LO QUE NOS CONTÓ</span>
+        <h2 style="margin: 0; font: 800 clamp(56px, 7.5vw, 104px)/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">Escuchalo de su&nbsp;voz</h2>
+      </div>
+      <p style="margin: 0; flex: 1 1 320px; max-width: 420px; font-size: 18px; line-height: 1.55; color: #46464C;">Cuatro momentos de la entrevista. Tocá play y las palabras se encienden mientras habla.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 16px;">
+      <sc-for list="{{clips}}" as="c" hint-placeholder-count="4">
+        <article class="revela" style="border-radius: 28px; padding: clamp(24px, 3vw, 36px); background: #111114; color: #F2F2EF; display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+            <span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: {{c.tagColor}};">{{c.tag}}</span>
+            <span style="font: 500 12px 'IBM Plex Mono', monospace; color: #9A9AA0;">{{c.ts}}</span>
+          </div>
+          <p style="margin: 0; font: 500 italic clamp(18px, 1.6vw, 21px)/1.55 Figtree, sans-serif;">
+            <sc-for list="{{c.words}}" as="w" hint-placeholder-count="12"><span class="w" style="color: {{c.wordColor}}; transition-delay: {{w.d}}s;">{{w.t}} </span></sc-for>
+          </p>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <button class="salto" onClick="{{c.play}}" aria-label="{{c.aria}}" style="flex: 0 0 auto; width: 56px; height: 56px; border-radius: 50%; border: 0; background: {{c.btnBg}}; display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.icon}}" fill="#111114"></path></svg>
+            </button>
+            <div aria-hidden="true" style="flex: 1 1 auto; height: 40px; display: flex; align-items: center; gap: 3px;">
+              <sc-for list="{{c.bars}}" as="b" hint-placeholder-count="28">
+                <span class="barra {{c.barClass}}" style="flex: 1 1 0; height: {{b.h}}%; border-radius: 2px; background: {{c.barColor}}; animation-delay: {{b.d}}s;"></span>
+              </sc-for>
+            </div>
+          </div>
+          <span style="font-size: 13px; line-height: 1.4; color: #9A9AA0;">{{c.estado}}</span>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · CIERRE -->
+<section style="background: #111114;">
+  <div style="max-width: 1240px; margin: 0 auto; padding: clamp(64px, 9vw, 112px) clamp(20px, 4vw, 48px) 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 56px;">
+    <span style="font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: #FF5A45;">04 · ¿Y EL DISEÑADOR, QUÉ HACE?</span>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px 48px;">
+      <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 2px solid #FF3B2F;">
+        <p style="margin: 0; font: 500 italic clamp(20px, 2vw, 26px)/1.4 Figtree, sans-serif;">“No existe el ego de diseñador en UX, así que lo primero es que tu propuesta probablemente no sea la&nbsp;mejor.”</p>
+        <span style="font: 500 12px 'IBM Plex Mono', monospace; letter-spacing: .1em; color: #9A9AA0;">1:03:33</span>
+      </div>
+      <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 2px solid #5A5A60;">
+        <p style="margin: 0; font: 500 italic clamp(20px, 2vw, 26px)/1.4 Figtree, sans-serif;">Cuando no está de acuerdo con el negocio, lo deja por escrito: “todo se registra, eso es lo más&nbsp;importante.”</p>
+        <span style="font: 500 12px 'IBM Plex Mono', monospace; letter-spacing: .1em; color: #9A9AA0;">1:02:15</span>
+      </div>
+    </div>
+    <p style="margin: 0; font: 800 clamp(60px, 9.5vw, 140px)/1 'Saira Extra Condensed', sans-serif; text-transform: uppercase;">
+      <sc-for list="{{final}}" as="w" hint-placeholder-count="10"><span class="wscroll" style="display: inline-block; margin-right: .2em; color: {{w.c}}; animation-range: entry {{w.a}}% cover {{w.b}}%;">{{w.t}}</span></sc-for>
+    </p>
+    <span style="margin-top: -32px; font: 500 12px 'IBM Plex Mono', monospace; letter-spacing: .1em; color: #9A9AA0;">DIEGO VILLARROEL · DISEÑADOR UX/UI · 08:47</span>
+
+    <sc-if value="{{sinPrueba}}" hint-placeholder-val="{{true}}">
+      <a class="salto" href="#prueba" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 26px; border-radius: 999px; background: #FF3B2F; color: #111114; font-weight: 700; text-decoration: none;">Te falta una parte: hacé la prueba</a>
+    </sc-if>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 48px; padding-top: 32px; border-top: 1px solid #2E2E35;">
+      <div style="display: flex; flex-wrap: wrap; gap: 20px 48px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #9A9AA0;">MATERIA</span><span style="font-size: 16px; line-height: 1.4;">Elementos de Psicología · FADU-UBA · 2026</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #9A9AA0;">ENTREGA</span><span style="font-size: 16px; line-height: 1.4;">Segunda evaluación · Parte 2</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #9A9AA0;">GRUPO 3</span><span style="font-size: 16px; line-height: 1.4;">Baigorri Martina, Fuentes Micaela, Mattey Angela</span></div>
+      </div>
+      <span style="display: inline-flex; align-items: center; gap: 10px; font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .12em; color: #9A9AA0;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #5A5A60;"></span>FIN DE LA GRABACIÓN</span>
+    </div>
+  </div>
+</section>
+
+</div>
+</script>
+<script src="vendor/idiomorph.min.js"></script>
+<script>
+
+class DCLogic { constructor(p){ this.props=p||{}; this.state={}; }
+  setState(p){ Object.assign(this.state,p); window.__dcQueue(); } }
+(function(){
+  var tplSrc=document.getElementById('plantilla').textContent;
+  function parse(s){ var re=/<(\/?)(sc-for|sc-if)\b([^>]*)>/g, root={k:'root',c:[]}, st=[root], last=0, m;
+    while((m=re.exec(s))){ if(m.index>last) st[st.length-1].c.push({k:'t',v:s.slice(last,m.index)}); last=re.lastIndex;
+      if(m[1]){ st.pop(); } else { var at=m[3]; var n={k:m[2],c:[]};
+        if(m[2]==='sc-for'){ n.list=/list="\{\{([\w.]+)\}\}"/.exec(at)[1]; n.as=/as="(\w+)"/.exec(at)[1]; }
+        else { n.val=/value="\{\{([\w.]+)\}\}"/.exec(at)[1]; }
+        st[st.length-1].c.push(n); st.push(n); } }
+    if(last<s.length) st[0].c.push({k:'t',v:s.slice(last)}); return root; }
+  var ast=parse(tplSrc), H=[];
+  function get(sc,p){ var parts=p.split('.'); var v=sc[parts[0]]; for(var i=1;i<parts.length&&v!=null;i++) v=v[parts[i]]; return v; }
+  function esc(v){ return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function out(n,sc){ var r='';
+    n.c.forEach(function(x){
+      if(x.k==='t'){ r+=x.v.replace(/\{\{\s*([\w.]+)\s*\}\}/g,function(_,p){ var v=get(sc,p); if(typeof v==='function'){ H.push(v); return 'window.__dc('+(H.length-1)+')'; } return v==null||v===false?'':esc(v); }); }
+      else if(x.k==='sc-if'){ if(get(sc,x.val)) r+=out(x,sc); }
+      else { (get(sc,x.list)||[]).forEach(function(it){ var s2=Object.create(sc); s2[x.as]=it; r+=out(x,s2); }); } });
+    return r; }
+  window.__dc=function(i){ H[i](); };
+  var inst, root, pending=false;
+  function render(){ pending=false; H=[]; var html=out(ast,inst.renderVals()); Idiomorph.morph(root,html,{morphStyle:'innerHTML'}); }
+  window.__dcQueue=function(){ if(!pending){ pending=true; requestAnimationFrame(render); } };
+  document.addEventListener('DOMContentLoaded',function(){ root=document.getElementById('app'); inst=new Component({}); render(); inst.componentDidMount&&inst.componentDidMount(); });
+})();
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    // Pegar acá la URL de cada recorte de audio cuando estén subidos.
+    this.urls = { a: 'audio/a.mp3', b: 'audio/b.mp3', c: 'audio/c.mp3', d: 'audio/d.mp3' };
+    this.audio = null;
+    this.state = Object.assign(this.inicial(), { now: Date.now(), playing: null });
+  }
+  inicial() {
+    return { step: 'intro', t0: 0, secs: 0, wrong: 0, screens: 0, answer: null, note: '', taps: [] };
+  }
+  componentDidMount() {
+    this.iv = setInterval(() => {
+      if (['app', 'oferta', 'aviso'].indexOf(this.state.step) >= 0) this.setState({ now: Date.now() });
+    }, 500);
+  }
+  componentWillUnmount() {
+    clearInterval(this.iv);
+    if (this.audio) this.audio.pause();
+  }
+  palabrasCue(cues, sonando) {
+    const out = [];
+    cues.forEach((c) => {
+      const ws = c.t.split(' ');
+      const peso = ws.map((w) => w.length + 1);
+      const tot = peso.reduce((a, b) => a + b, 0);
+      let acc = 0;
+      ws.forEach((w, i) => { out.push({ t: w, d: sonando ? +(c.s + (c.e - c.s) * acc / tot).toFixed(2) : 0 }); acc += peso[i]; });
+    });
+    return out;
+  }
+  palabras(texto, paso, inicio) {
+    return texto.split(' ').map((t, i) => ({ t, d: +(inicio + i * paso).toFixed(2) }));
+  }
+  toque(clave, extra) {
+    const s = this.state;
+    const taps = s.taps.concat([clave]);
+    this.setState(Object.assign({ taps }, extra));
+  }
+  reproducir(id, dur) {
+    if (!this.urls[id]) return;
+    if (this.audio) { this.audio.pause(); this.audio = null; }
+    if (this.state.playing === id) { this.setState({ playing: null }); return; }
+    const a = new Audio(this.urls[id]);
+    this.audio = a;
+    a.onended = () => this.setState({ playing: null });
+    a.play().catch(() => this.setState({ playing: null }));
+    this.setState({ playing: id });
+  }
+  renderVals() {
+    const s = this.state;
+    const done = !!s.answer;
+    const enCurso = ['app', 'oferta', 'aviso'].indexOf(s.step) >= 0;
+    const seg = enCurso ? Math.floor((s.now - s.t0) / 1000) : (s.step === 'intro' ? 0 : s.secs);
+    const reloj = '00:' + String(Math.max(0, Math.min(seg, 59))).padStart(2, '0');
+
+    const T = {
+      seguir: { label: 'Seguir disfrutando Premium', ok: false, trampa: 'El botón más grande y oscuro es el que te deja adentro. La salida nunca es la opción principal.', tag: '' },
+      beneficios: { label: 'Ver mis 12 beneficios', ok: false, trampa: 'Antes de irte, te muestra todo lo que perdés.', tag: '' },
+      ayuda: { label: 'Ayuda', ok: false, trampa: 'La salida estaba escondida entre links que nadie lee. Diego: “O simplemente te esconden las cosas.”', tag: '' },
+      privacidad: { label: 'Privacidad', ok: false, trampa: 'La salida estaba escondida entre links que nadie lee. Diego: “O simplemente te esconden las cosas.”', tag: '' },
+      gestionar: { label: 'Gestionar suscripción', ok: true, trampa: 'Encontraste la salida: 12 px, gris, abajo de todo.', tag: '' },
+      mes: { label: 'Quiero mi mes gratis', ok: false, trampa: 'Te ofrecen algo justo cuando te vas. Diego lo contó con Adobe y ChatGPT: “te meten 15.000 cosas”.', tag: '' },
+      nogracias: { label: 'No, gracias. Cancelar igual', ok: true, trampa: 'El “no” está escrito chiquito y sin forma de botón.', tag: '' },
+      mantener: { label: 'Mantener mi racha', ok: false, trampa: 'Culpa por lo que acumulaste: el mandato de no cortar. Diego lo vio en Duolingo: “te hace sentir mal”.', tag: 'SUPERYÓ' },
+      cancelar: { label: 'Cancelar suscripción', ok: true, trampa: 'Lo lograste. Ahora fijate cuánto te costó llegar.', tag: '' }
+    };
+    const recorrido = s.taps.map((k, i) => {
+      const t = T[k];
+      return { n: String(i + 1).padStart(2, '0'), label: t.label, trampa: t.trampa, icono: t.ok ? '✓' : '×', bg: t.ok ? '#7EDB9A' : '#FF3B2F', tag: t.tag, tagColor: '#FF5A45' };
+    });
+
+    const etiquetas = { facil: 'Re fácil', normal: 'Normal', costo: 'Me costó' };
+    let veredicto = '';
+    if (done) {
+      if (s.answer === 'facil' && s.wrong > 0) veredicto = 'Dijiste que fue re fácil, pero tocaste ' + s.wrong + (s.wrong === 1 ? ' vez' : ' veces') + ' algo que te alejaba de cancelar. No es mentir: es lo que Diego ve en cada prueba.';
+      else if (s.answer === 'facil') veredicto = 'Dijiste re fácil y fuiste directo. Igual necesitaste ' + s.screens + ' pantallas para algo que podría ser un botón.';
+      else if (s.answer === 'normal') veredicto = 'Dijiste normal. Tardaste ' + s.secs + ' segundos y ' + s.screens + ' pantallas. Lo “normal” es que te cueste: está hecho así.';
+      else veredicto = 'Dijiste que te costó, y tus números te dan la razón. No fue torpeza: la pantalla estaba hecha para que dudaras.';
+    }
+
+    const wrongTap = (clave, nota) => () => this.toque(clave, { wrong: this.state.wrong + 1, note: nota, step: 'app' });
+    const go = (patch) => () => this.setState(patch);
+
+    const defs = [{"id":"a","ts":"AUDIO 07:21","tag":"INCONSCIENTE","tagColor":"#FF5A45","cues":[{"s":1.32,"e":15.68,"t":"Si te dice, ah, sí, esto fue re fácil y tuviste que tardó dos minutos haciendo la prueba, es muy normal también, porque la gente puede sentir miedo a decir que no entendió o que sencillamente algo fue muy difícil para ellos y tuvieron miedo de preguntar en medio, ¿no?"},{"s":15.68,"e":22.46,"t":"En estas pruebas con usuarios siempre se le pide hablar en voz alta, siempre se le dice, che, ante cualquier cosa, decí lo que sientas, ¿no?"},{"s":22.56,"e":25.14,"t":"Si no, esto está mal, esto está bien, no sé por dónde ir."},{"s":25.9,"e":31.32,"t":"Se evita guiar a la persona, entonces como que siempre tienes que evaluar esa primera impresión de la persona, ¿no?"}]},{"id":"b","ts":"AUDIO 39:49","tag":"SUPERYÓ · SOBRE DUOLINGO","tagColor":"#C9C9CE","cues":[{"s":0.1,"e":6.16,"t":"Te recuerda, ¿no? Y te hace sentir mal en algunos puntos y vos decís, che, Duolingo te dice que si no la otra persona pierde..."},{"s":6.16,"e":8.17,"t":"O sea, como que te pone en una situación incómoda."},{"s":8.6,"e":12.6,"t":"Cuando vos estás en una racha con una persona, te dice, si vos no lo haces, la otra persona pierde su racha."},{"s":12.6,"e":15.71,"t":"Entonces, como que... O sea, ¿por qué me hace sentir mal?"},{"s":16.58,"e":18.1,"t":"Eso puede ser un límite."},{"s":18.5,"e":21.73,"t":"Pero depende mucho también porque esa es parte de la personalidad de Duol, ¿no?"},{"s":21.78,"e":26.14,"t":"Es parte de la personalidad de la aplicación y la gente se ríe de eso y vive bien con eso, ¿no?"}]},{"id":"c","ts":"AUDIO 1:08:40","tag":"IDENTIFICACIÓN","tagColor":"#C9C9CE","cues":[{"s":3.95,"e":12.1,"t":"Y nada, obviamente yo las preferencias que tengo también es porque las veces que uso la aplicación siempre me hace sentir capaz, único."},{"s":12.3,"e":13.38,"t":"Me hace sentir escuchado."},{"s":13.49,"e":14.2,"t":"Me hace sentir, ¿no?"},{"s":14.57,"e":18.22,"t":"Estás usando fudo y va alguien de fudo y te pregunta por fudo."},{"s":18.78,"e":23.95,"t":"Es como, bueno, me está dando poder como cliente de fudo, como consumidor, como quien usa fudo,"}]},{"id":"d","ts":"AUDIO 42:04","tag":"ÉL TAMBIÉN","tagColor":"#C9C9CE","cues":[{"s":0.35,"e":1.36,"t":"es re difícil."},{"s":1.36,"e":4.7,"t":"Antes de que llegues a cancelarla, te meten 15.000 cosas."},{"s":6.31,"e":8.68,"t":"Porque me ha pasado y porque yo me quedé por ese tipo de cosas."},{"s":8.76,"e":12.22,"t":"Te ofrecen cosas, te dicen, no, pero ya va, esperate, no lees este botón, no sé qué."},{"s":12.58,"e":14.22,"t":"No, te doy un mes gratis y no sé qué."},{"s":14.38,"e":17.83,"t":"Y después te dicen, bueno, si lo cancelas ahorita, ojo que te cancelamos el mes gratis."}]}];
+    const alturas = [40, 70, 55, 90, 65, 35, 80, 100, 60, 45, 75, 50, 85, 30, 65, 95, 55, 40, 70, 60, 85, 45, 75, 35, 60, 90, 50, 40];
+    const clips = defs.map((d) => {
+            const sonando = s.playing === d.id;
+      const hay = !!this.urls[d.id];
+      return {
+        tag: d.tag, tagColor: d.tagColor, ts: d.ts,
+        words: this.palabrasCue(d.cues, sonando),
+        wordColor: sonando ? '#F2F2EF' : (hay ? '#8E8E95' : '#F2F2EF'),
+        play: () => this.reproducir(d.id, d.dur),
+        aria: sonando ? 'Pausar audio de Diego' : 'Escuchar a Diego',
+        icon: sonando ? 'M6 5h4v14H6zM14 5h4v14h-4z' : 'M7 4.5v15l13-7.5z',
+        btnBg: hay ? '#FF3B2F' : '#5A5A60',
+        barClass: sonando ? 'sonando' : '',
+        barColor: sonando ? '#FF3B2F' : '#3A3A42',
+        bars: alturas.map((h, i) => ({ h, d: +((i % 7) * 0.09).toFixed(2) })),
+        estado: hay ? (sonando ? 'Sonando…' : 'Tocá play para escuchar') : 'Audio pendiente de subir'
+      };
+    });
+
+    const fin = 'Hay muchas cosas por fuera de lo que pasa en la pantalla.'.split(' ');
+    const final = fin.map((t, i) => ({ t, c: i >= fin.length - 1 ? '#FF3B2F' : '#F2F2EF', a: i * 4, b: 20 + i * 4 }));
+
+    return {
+      tituloA: this.palabras('Lo que dice', 0.12, 0.1),
+      tituloB: this.palabras('y lo que hace', 0.12, 0.55),
+      isIntro: s.step === 'intro', isApp: s.step === 'app', isOferta: s.step === 'oferta',
+      isAviso: s.step === 'aviso', isHecho: s.step === 'hecho', isFin: s.step === 'fin',
+      hasNote: !!s.note, note: s.note,
+      racha: Array.from({ length: 35 }, (_, i) => ({ c: i < 34 ? '#5B3DF5' : '#ECEAF2' })),
+      reloj,
+      recLabel: enCurso ? 'GRABANDO' : (done || s.step === 'hecho' ? 'PRUEBA TERMINADA' : 'LISTO PARA GRABAR'),
+      recColor: enCurso ? '#FF3B2F' : '#5A5A60',
+      recClass: enCurso ? 'rec' : '',
+      obsToques: done ? String(s.wrong) : '•••',
+      obsPantallas: done ? String(s.screens) : '•••',
+      start: () => this.setState({ step: 'app', t0: Date.now(), now: Date.now(), wrong: 0, screens: 1, note: '', answer: null, taps: [] }),
+      tapSeguir: wrongTap('seguir', 'Genial, seguís con Premium.'),
+      tapBeneficios: wrongTap('beneficios', 'Tenés 12 beneficios activos. ¡Aprovechalos!'),
+      tapAyuda: wrongTap('ayuda', 'No encontramos artículos para tu búsqueda.'),
+      tapPrivacidad: wrongTap('privacidad', 'Tus datos están protegidos.'),
+      gestionar: () => this.toque('gestionar', { step: 'oferta', screens: this.state.screens + 1, note: '' }),
+      tapMesGratis: wrongTap('mes', 'Listo, te activamos un mes gratis. Seguís suscripto.'),
+      noGracias: () => this.toque('nogracias', { step: 'aviso', screens: this.state.screens + 1 }),
+      tapMantener: wrongTap('mantener', 'Tu racha sigue viva. Seguís suscripto.'),
+      cancelar: () => this.toque('cancelar', { step: 'hecho', screens: this.state.screens + 1, secs: Math.max(1, Math.round((Date.now() - this.state.t0) / 1000)) }),
+      rFacil: go({ answer: 'facil', step: 'fin' }),
+      rNormal: go({ answer: 'normal', step: 'fin' }),
+      rCosto: go({ answer: 'costo', step: 'fin' }),
+      reset: () => this.setState(this.inicial()),
+      done, sinPrueba: !done,
+      dijiste: done ? etiquetas[s.answer] : '',
+      segundos: String(s.secs), toques: String(s.wrong), pantallas: String(s.screens),
+      veredicto, recorrido, clips, final
+    };
+  }
+}
+
+</script>
+</body>
+</html>
